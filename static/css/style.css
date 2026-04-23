@@ -1,0 +1,345 @@
+:root {
+    --cream: #fff9f0;
+    --sand: #f4e7d4;
+    --gold: #d6a85f;
+    --wine: #5c2f2f;
+    --ink: #1f1c1a;
+    --muted: #6a6258;
+    --card: rgba(255, 255, 255, 0.82);
+    --line: rgba(92, 47, 47, 0.12);
+    --shadow: 0 20px 50px rgba(70, 44, 25, 0.12);
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(214, 168, 95, 0.24), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(92, 47, 47, 0.14), transparent 24%),
+        linear-gradient(180deg, #fffaf3 0%, #f6ede1 100%);
+    color: var(--ink);
+    font-family: "Manrope", sans-serif;
+}
+
+.page-shell {
+    min-height: 100vh;
+}
+
+.site-nav {
+    padding-top: 1.1rem;
+}
+
+.brand-mark {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--wine);
+}
+
+.nav-pills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.nav-shell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-action {
+    padding: 0.72rem 1rem;
+    border-radius: 999px;
+    color: var(--ink);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.nav-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(60, 39, 24, 0.08);
+    background: rgba(255, 255, 255, 0.88);
+    color: var(--wine);
+}
+
+.nav-action--accent {
+    background: linear-gradient(135deg, #7d3a35, #c98b47);
+    color: #fff;
+}
+
+.nav-action--admin {
+    margin-left: 0.25rem;
+    background: rgba(92, 47, 47, 0.08);
+    border-color: rgba(92, 47, 47, 0.14);
+    color: var(--wine);
+    font-weight: 800;
+}
+
+.hero-panel,
+.form-panel,
+.feature-card,
+.metric-card,
+.success-panel {
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+}
+
+.hero-panel {
+    padding: 2.4rem;
+}
+
+.hero-title,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--wine);
+}
+
+.hero-title {
+    font-size: clamp(2.6rem, 5vw, 4.6rem);
+    line-height: 0.95;
+    margin-bottom: 1rem;
+}
+
+.hero-copy,
+.muted-copy,
+.feature-card p,
+.metric-card p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.eyebrow,
+.small-label {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.73rem;
+    font-weight: 800;
+    color: #9a6d35;
+}
+
+.hero-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.info-tile,
+.review-card {
+    height: 100%;
+    border-radius: 22px;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(92, 47, 47, 0.08);
+}
+
+.info-tile strong,
+.summary-stack strong,
+.metric-card h3 {
+    display: block;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--wine);
+    margin: 0.45rem 0 0.65rem;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1rem;
+}
+
+.link-chip,
+.text-link {
+    color: var(--wine);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.feature-card,
+.form-panel,
+.metric-card,
+.success-panel {
+    padding: 1.7rem;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.menu-card-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 0.4rem;
+}
+
+.menu-card-image--placeholder {
+    background:
+        linear-gradient(135deg, rgba(214, 168, 95, 0.55), rgba(92, 47, 47, 0.25)),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.6), transparent);
+}
+
+.feature-card__badge {
+    align-self: flex-start;
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(92, 47, 47, 0.08);
+    color: var(--wine);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.feature-card__badge--warm {
+    background: rgba(214, 168, 95, 0.18);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #7d3a35, #c98b47);
+    border: none;
+    box-shadow: 0 10px 25px rgba(125, 58, 53, 0.18);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: linear-gradient(135deg, #6a2f2c, #ba7c34);
+}
+
+.btn-outline-dark {
+    border-color: rgba(92, 47, 47, 0.3);
+    color: var(--wine);
+}
+
+.price-tag {
+    color: var(--wine);
+    font-size: 1.05rem;
+}
+
+.summary-stack,
+.timeline-list,
+.stats-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.timeline-item,
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.timeline-item:last-child,
+.stats-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.timeline-item {
+    display: block;
+}
+
+.pill-count {
+    flex-shrink: 0;
+    align-self: start;
+    min-width: 48px;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(214, 168, 95, 0.16);
+    color: var(--wine);
+    text-align: center;
+    font-weight: 800;
+}
+
+.empty-state {
+    padding: 2rem;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px dashed rgba(92, 47, 47, 0.2);
+    text-align: center;
+}
+
+.empty-state.compact {
+    padding: 1rem;
+}
+
+.confirmation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.form-control,
+.form-select {
+    min-height: 52px;
+    border-radius: 14px;
+    border-color: rgba(92, 47, 47, 0.16);
+    padding: 0.8rem 0.95rem;
+}
+
+textarea.form-control {
+    min-height: 140px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(201, 139, 71, 0.18);
+    border-color: rgba(201, 139, 71, 0.5);
+}
+
+@media (max-width: 991px) {
+    .hero-card-grid,
+    .confirmation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 767px) {
+    .nav-shell {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .hero-panel,
+    .form-panel,
+    .feature-card,
+    .metric-card,
+    .success-panel {
+        padding: 1.3rem;
+        border-radius: 22px;
+    }
+
+    .nav-pills-wrap {
+        margin-top: 1rem;
+    }
+
+    .hero-title {
+        line-height: 1.02;
+    }
+}
