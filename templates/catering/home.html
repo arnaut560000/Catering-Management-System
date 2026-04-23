@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero-panel mb-5">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <span class="eyebrow">Premium Event Operations</span>
+            <h1 class="hero-title">A complete catering system with polished booking, menu planning, and event insights.</h1>
+            <p class="hero-copy">
+                Silverios Catering brings your front desk, recommendation flow, and customer feedback into one elegant dashboard.
+                Use it to accept reservations, showcase menus, and track satisfaction without jumping between tools.
+            </p>
+            <div class="d-flex flex-wrap gap-3">
+                <a href="/book/" class="btn btn-primary btn-lg">Book an Event</a>
+                <a href="/dashboard/" class="btn btn-outline-dark btn-lg">View Dashboard</a>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="hero-card-grid">
+                <div class="info-tile">
+                    <span class="info-label">Venues</span>
+                    <strong>{{ stats.venues }}</strong>
+                    <p>Spaces ready for weddings, corporate gatherings, and private celebrations.</p>
+                </div>
+                <div class="info-tile">
+                    <span class="info-label">Menu Items</span>
+                    <strong>{{ stats.menu_items }}</strong>
+                    <p>Curated dishes that can be tailored by meal period and event size.</p>
+                </div>
+                <div class="info-tile">
+                    <span class="info-label">Bookings</span>
+                    <strong>{{ stats.bookings }}</strong>
+                    <p>Reservations managed in one workflow from inquiry to confirmation.</p>
+                </div>
+                <div class="info-tile">
+                    <span class="info-label">Feedback</span>
+                    <strong>{{ stats.feedback_entries }}</strong>
+                    <p>Ratings and sentiment transformed into service insights.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-5">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Featured Venues</span>
+            <h2>Host with confidence in spaces built for celebration.</h2>
+        </div>
+        <a href="/book/" class="link-chip">Plan your event</a>
+    </div>
+    <div class="row g-4">
+    {% for venue in venues %}
+    <div class="col-md-4">
+        <div class="feature-card h-100">
+            <div class="feature-card__badge">Capacity {{ venue.capacity }}</div>
+            <h5 class="card-title">{{ venue.name }}</h5>
+            <p class="card-text">{{ venue.location }}</p>
+            <p class="muted-copy">Designed for smooth service flow, guest comfort, and premium presentation.</p>
+            <a href="/book/" class="text-link">Reserve this venue</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="empty-state">
+            <h4>No venues yet</h4>
+            <p>Add venues in Django admin to display your event spaces here.</p>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</section>
+
+<section>
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Recommended Dishes</span>
+            <h2>Menu highlights to help clients picture the experience.</h2>
+        </div>
+        <a href="/recommendations/" class="link-chip">Explore menu matching</a>
+    </div>
+    <div class="row g-4">
+        {% for item in featured_items %}
+        <div class="col-md-6 col-xl-3">
+            <div class="feature-card h-100">
+                {% if item.image_url %}
+                <img src="{{ item.image_url }}" alt="{{ item.name }}" class="menu-card-image">
+                {% else %}
+                <div class="menu-card-image menu-card-image--placeholder"></div>
+                {% endif %}
+                <div class="feature-card__badge feature-card__badge--warm">{{ item.get_category_display }}</div>
+                <h5>{{ item.name }}</h5>
+                <p class="muted-copy">{{ item.description|default:"Chef-curated item for premium events and custom catering plans." }}</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                    <span class="small-label">{{ item.get_meal_type_display }}</span>
+                    <strong class="price-tag">PHP {{ item.price }}</strong>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="empty-state">
+                <h4>No menu items yet</h4>
+                <p>Add menu items in Django admin to power the recommendation experience.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

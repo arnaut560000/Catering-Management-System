@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-heading mb-4">
+    <div>
+        <span class="eyebrow">Menu Intelligence</span>
+        <h2>Personalized menu recommendations</h2>
+        <p class="muted-copy">Filter dishes by meal period and estimate a rough package total for your guest count.</p>
+    </div>
+</section>
+
+<div class="row g-4 mb-4">
+    <div class="col-lg-8">
+        <div class="form-panel">
+            <form method="get" class="row g-3">
+                <div class="col-md-5">
+                    <label class="form-label">Meal Category</label>
+                    <select name="meal" class="form-select">
+                        <option value="breakfast" {% if preferred_meal == 'breakfast' %}selected{% endif %}>Breakfast</option>
+                        <option value="lunch" {% if preferred_meal == 'lunch' %}selected{% endif %}>Lunch</option>
+                        <option value="dinner" {% if preferred_meal == 'dinner' %}selected{% endif %}>Dinner</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Number of Persons</label>
+                    <input type="number" name="persons" class="form-control" value="{{ persons }}" min="1">
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Generate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="feature-card h-100">
+            <span class="eyebrow">Quick Summary</span>
+            <div class="summary-stack">
+                <div>
+                    <span class="small-label">Recommended items</span>
+                    <strong>{{ recommended_items|length }}</strong>
+                </div>
+                <div>
+                    <span class="small-label">Chef picks</span>
+                    <strong>{{ featured_count }}</strong>
+                </div>
+                <div>
+                    <span class="small-label">Estimated total</span>
+                    <strong>PHP {{ estimated_total }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    {% for item in recommended_items %}
+    <div class="col-md-6 col-xl-4">
+        <div class="feature-card h-100">
+            {% if item.image_url %}
+            <img src="{{ item.image_url }}" alt="{{ item.name }}" class="menu-card-image">
+            {% else %}
+            <div class="menu-card-image menu-card-image--placeholder"></div>
+            {% endif %}
+            <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                <div>
+                    <div class="feature-card__badge {% if item.is_recommended %}feature-card__badge--warm{% endif %}">
+                        {% if item.is_recommended %}Chef Recommended{% else %}Available{% endif %}
+                    </div>
+                    <h5 class="mt-3">{{ item.name }}</h5>
+                </div>
+                <strong class="price-tag">PHP {{ item.price }}</strong>
+            </div>
+            <p class="muted-copy">{{ item.description|default:"Prepared for elegant, efficient service and flexible event menus." }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+                <span class="small-label">{{ item.get_meal_type_display }}</span>
+                <span class="text-link">{{ item.get_category_display }}</span>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="empty-state">
+            <h4>No menu items for this category yet</h4>
+            <p>Add breakfast, lunch, or dinner items in admin to make recommendations appear here.</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

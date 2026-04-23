@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-heading mb-4">
+    <div>
+        <span class="eyebrow">Reservation Desk</span>
+        <h2>Book your catering event</h2>
+        <p class="muted-copy">Capture the essentials in one place so the operations team can confirm your event quickly.</p>
+    </div>
+</section>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="form-panel">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                {% endif %}
+                <div class="row g-3">
+                    {% for field in form %}
+                    <div class="{% if field.name == 'special_request' %}col-12{% else %}col-md-6{% endif %}">
+                        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text }}</div>
+                        {% endif %}
+                        {% for error in field.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-4 d-flex gap-3 flex-wrap">
+                    <button type="submit" class="btn btn-primary btn-lg">Submit Booking</button>
+                    <a href="/" class="btn btn-outline-dark btn-lg">Back to Home</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="feature-card h-100">
+            <span class="eyebrow">What Happens Next</span>
+            <h4>Fast, friendly event coordination.</h4>
+            <div class="timeline-list">
+                <div class="timeline-item">
+                    <strong>1. We receive your request</strong>
+                    <p>Your event details are saved directly into the system.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>2. Venue and menu planning</strong>
+                    <p>Staff can match your headcount, timing, and venue preferences.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>3. Confirmation and follow-up</strong>
+                    <p>Your team can review everything in the dashboard and respond confidently.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

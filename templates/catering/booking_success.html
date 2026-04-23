@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="success-panel">
+    <span class="eyebrow">Reservation Confirmed</span>
+    <h2>Booking submitted successfully.</h2>
+    <p class="muted-copy">Your request is now stored in the system and ready for staff review.</p>
+    {% if booking %}
+    <div class="confirmation-grid">
+        <div>
+            <span class="small-label">Client</span>
+            <strong>{{ booking.customer_name }}</strong>
+        </div>
+        <div>
+            <span class="small-label">Date</span>
+            <strong>{{ booking.booking_date }}</strong>
+        </div>
+        <div>
+            <span class="small-label">Time</span>
+            <strong>{{ booking.event_time }}</strong>
+        </div>
+        <div>
+            <span class="small-label">Venue</span>
+            <strong>{{ booking.venue.name }}</strong>
+        </div>
+    </div>
+    {% endif %}
+    <div class="d-flex gap-3 flex-wrap mt-4">
+        <a href="/" class="btn btn-primary btn-lg">Back to Home</a>
+        <a href="/dashboard/" class="btn btn-outline-dark btn-lg">Open Dashboard</a>
+    </div>
+</div>
+{% endblock %}

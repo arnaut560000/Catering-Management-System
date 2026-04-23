@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-heading mb-4">
+    <div>
+        <span class="eyebrow">Service Review</span>
+        <h2>Customer feedback</h2>
+        <p class="muted-copy">Collect ratings and comments, then convert them into simple sentiment analytics.</p>
+    </div>
+</section>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="form-panel">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                {% endif %}
+                <div class="row g-3">
+                    {% for field in form %}
+                    <div class="{% if field.name == 'comment' %}col-12{% else %}col-md-6{% endif %}">
+                        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% for error in field.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-4 d-flex gap-3 flex-wrap">
+                    <button type="submit" class="btn btn-primary btn-lg">Submit Feedback</button>
+                    <a href="/dashboard/" class="btn btn-outline-dark btn-lg">View Dashboard</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="feature-card h-100">
+            <span class="eyebrow">Built-in Insight</span>
+            <h4>Ratings become analytics automatically.</h4>
+            <p class="muted-copy">
+                Each feedback entry is scored for simple positive, neutral, or negative sentiment so the dashboard can highlight trends without extra work.
+            </p>
+            <div class="timeline-list">
+                <div class="timeline-item">
+                    <strong>Ratings from 1 to 5</strong>
+                    <p>Measure service quality in a consistent format.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Comment sentiment</strong>
+                    <p>Simple keyword analysis turns text into a fast operational signal.</p>
+                </div>
+                <div class="timeline-item">
+                    <strong>Dashboard visibility</strong>
+                    <p>Recent reviews and trends appear on the analytics page right away.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section-heading mb-4">
+    <div>
+        <span class="eyebrow">Operations Overview</span>
+        <h2>Feedback analytics dashboard</h2>
+        <p class="muted-copy">Track bookings, client satisfaction, and venue activity from a single view.</p>
+    </div>
+</section>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card">
+            <span class="small-label">Total Bookings</span>
+            <h3>{{ total_bookings }}</h3>
+            <p>All reservation requests saved in the system.</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card">
+            <span class="small-label">Upcoming Events</span>
+            <h3>{{ upcoming_bookings }}</h3>
+            <p>Bookings scheduled for today or later.</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card">
+            <span class="small-label">Total Feedback</span>
+            <h3>{{ total_feedback }}</h3>
+            <p>Reviews collected from completed events.</p>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="metric-card">
+            <span class="small-label">Average Rating</span>
+            <h3>{{ average_rating }}</h3>
+            <p>Overall guest satisfaction across reviews.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="feature-card h-100">
+            <h4>Sentiment Breakdown</h4>
+            <div class="stats-list mt-4">
+                {% for row in sentiment_data %}
+                <div class="stats-row">
+                    <div>
+                        <strong>{{ row.sentiment|title }}</strong>
+                        <p>{{ row.total }} responses</p>
+                    </div>
+                    <span class="pill-count">{{ row.total }}</span>
+                </div>
+                {% empty %}
+                <div class="empty-state compact">
+                    <p>No feedback data available yet.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="feature-card h-100">
+            <h4>Rating Distribution</h4>
+            <div class="stats-list mt-4">
+                {% for row in rating_breakdown %}
+                <div class="stats-row">
+                    <div>
+                        <strong>{{ row.rating }} / 5</strong>
+                        <p>Customer ratings at this score</p>
+                    </div>
+                    <span class="pill-count">{{ row.total }}</span>
+                </div>
+                {% empty %}
+                <div class="empty-state compact">
+                    <p>No ratings have been submitted yet.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-1">
+    <div class="col-lg-6">
+        <div class="feature-card h-100">
+            <h4>Most Active Venues</h4>
+            <div class="stats-list mt-4">
+                {% for venue in popular_venues %}
+                <div class="stats-row">
+                    <div>
+                        <strong>{{ venue.name }}</strong>
+                        <p>{{ venue.location }}</p>
+                    </div>
+                    <span class="pill-count">{{ venue.total_bookings }}</span>
+                </div>
+                {% empty %}
+                <div class="empty-state compact">
+                    <p>No venue activity yet.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="feature-card h-100">
+            <h4>Recent Bookings</h4>
+            <div class="stats-list mt-4">
+                {% for booking in recent_bookings %}
+                <div class="stats-row">
+                    <div>
+                        <strong>{{ booking.customer_name }}</strong>
+                        <p>{{ booking.booking_date }} at {{ booking.event_time }} | {{ booking.venue.name }}</p>
+                    </div>
+                    <span class="pill-count">{{ booking.number_of_persons }}</span>
+                </div>
+                {% empty %}
+                <div class="empty-state compact">
+                    <p>No bookings submitted yet.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-1">
+    <div class="col-12">
+        <div class="feature-card">
+            <h4>Recent Feedback</h4>
+            <div class="row g-3 mt-1">
+                {% for item in recent_feedback %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="review-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <strong>{{ item.customer_name }}</strong>
+                            <span class="pill-count">{{ item.rating }}/5</span>
+                        </div>
+                        <p class="muted-copy">{{ item.comment }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="small-label">{{ item.sentiment|title }}</span>
+                            <span class="small-label">{{ item.created_at|date:"M d, Y" }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="empty-state compact">
+                        <p>No recent feedback yet.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
